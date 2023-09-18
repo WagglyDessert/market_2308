@@ -52,4 +52,27 @@ RSpec.describe Item do
     expect(@vendor2.potential_revenue).to eq(345.00)
     expect(@vendor3.potential_revenue).to eq(48.75)
   end
+
+  it 'has a sorted item list' do
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    #require 'pry';binding.pry
+    expect(@market.sorted_item_list).to eq(["Banana Nice Cream", "Peach", "Peach-Raspberry Nice Cream", "Tomato"])
+  end
+
+  it 'has total inventory' do
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    #expect(@market.total_inventory).to eq({@item1 => {:number=>50, @vendors => [@vendor1, @vendor3]}, @item2 => {:number=>25, @vendors => [@vendor1]}, @item3 => {:number=>7, @vendors => [@vendor2]}, @item2 => {:number=>100, @vendors => [@vendor2]}})
+    #not sure what to put for test here
+  end
+
+  it 'has overstock' do
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    expect(@market.overstocked_items).to eq([@item1])
+  end
 end
