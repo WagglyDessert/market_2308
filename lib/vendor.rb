@@ -6,15 +6,15 @@ class Vendor
   end
 
   def check_stock(item)
-    if @inventory[:item] == nil
-      return 0
-    else
-      @inventory[:item]
-    end
+    @inventory[item] || 0
   end
 
-  def stock(item, number)
-    @inventory[:item] ||= 0
-    @inventory[:item] += number
+  def stock(item, quantity)
+    @inventory[item] ||= 0
+    @inventory[item] += quantity
+  end
+
+  def potential_revenue
+    @inventory.sum { |item, quantity| item.price * quantity }
   end
 end

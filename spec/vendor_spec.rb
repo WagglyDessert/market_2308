@@ -21,7 +21,7 @@ RSpec.describe Item do
   it 'can stock items' do
     @vendor.stock(@item1, 30)
     expect(@vendor.check_stock(@item1)).to eq(30)
-    expect(@vendor.inventory).to eq({:item => 30})
+    expect(@vendor.inventory).to eq({@item1 => 30})
   end
 
   it 'can add stock to existing stock' do
