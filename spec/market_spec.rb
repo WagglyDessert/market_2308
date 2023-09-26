@@ -75,4 +75,22 @@ RSpec.describe Item do
     @market.add_vendor(@vendor3)
     expect(@market.overstocked_items).to eq([@item1])
   end
+
+  it "returns the date the market was created" do
+    date = Date.today.strftime("%d/%m/%y")
+    allow(Date).to receive(:today).and_return(Date.new(2023, 9, 18))
+    expect(@market.date).to eq(date)
+  end
+
+  it "reduces quantity from stock" do
+    @market.add_vendor(@vendor1)
+    @market.add_vendor(@vendor2)
+    @market.add_vendor(@vendor3)
+    #not enough available
+    expect(@market.sell(@item1, 200)).to be false
+    #this should work
+    expect(@market.sell(@item1, 40)).to be true
+    #item should not be sold out
+    expect(@vendor1.check_stock(@item1)).to be 0
+  end
 end
